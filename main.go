@@ -57,6 +57,10 @@ func main() {
 		log.Fatal(err)
 	}
 
+	if IsGitEnabled() {
+		utils.RunCommand("git init .")
+	}
+
 	utils.RunCommand("task dev")
 }
 
@@ -67,6 +71,11 @@ func GetProjectName() string {
 	}
 
 	return strings.ReplaceAll(pn, " ", "-")
+}
+
+func IsGitEnabled() bool {
+	v := utils.GetUserInput("Enable git? (y/N): ")
+	return strings.ToLower(v) == "y"
 }
 
 func CreateDirAll(paths []string) error {
