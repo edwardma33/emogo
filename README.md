@@ -41,6 +41,7 @@ Each generated project contains its own `README.md` with setup guidance and a re
 
 - Templ templates under `web/templates`
 - Tailwind source and generated browser assets under `web/static`
+- A self-hosted Geist Latin variable font, with weights from 100 through 900
 - An HTMX starter route at `/htmx-test`
 - PostgreSQL connection code in `internal/db`, migrations in `sql/schema`, and `sqlc.yaml`
 

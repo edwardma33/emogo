@@ -10,7 +10,7 @@ import (
 )
 
 var dirs = []string{
-	"web/templates", "web/static", "internal/db", "sql/schema", "sql/queries",
+	"web/templates", "web/static/files", "internal/db", "sql/schema", "sql/queries", "LICENSES",
 }
 
 func main() {
@@ -27,7 +27,7 @@ func main() {
 		"sql/schema/001_init.sql":    "-- +goose Up\n\n-- +goose Down",
 		"web/templates/layout.templ": boilerplate.LayoutTemplFileData,
 		"web/templates/index.templ":  boilerplate.IndexTemplFileData,
-		"web/static/input.css":       "@import \"tailwindcss\";",
+		"web/static/input.css":       boilerplate.InputCSSFileData,
 		"web/static/app.ts":          boilerplate.AppTsFileData,
 	}
 
@@ -53,6 +53,14 @@ func main() {
 	}
 
 	err = CreateFiles(files)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = CreateBinaryFiles(map[string][]byte{
+		"web/static/files/geist-latin-wght-normal.woff2": boilerplate.GeistLatinVariableFont,
+		"LICENSES/Geist-OFL.txt":                         boilerplate.GeistOFL,
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -93,6 +101,17 @@ func CreateFiles(files map[string]string) error {
 	var err error
 	for p, data := range files {
 		err = os.WriteFile(p, []byte(data), 0666)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func CreateBinaryFiles(files map[string][]byte) error {
+	var err error
+	for p, data := range files {
+		err = os.WriteFile(p, data, 0666)
 		if err != nil {
 			return err
 		}
