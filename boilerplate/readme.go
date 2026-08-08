@@ -4,6 +4,8 @@ var READMEFileData string = `# %s
 
 This project was created with Emogo. It uses Go, Templ, HTMX, Tailwind CSS, Bun, and PostgreSQL scaffolding.
 
+Emogo installed the Go and Bun dependencies, generated the starter files, and optionally initialized Git during project creation.
+
 ## Prerequisites
 
 The generated Taskfile expects these commands to be installed and available on your PATH:
@@ -30,6 +32,8 @@ task dev
 ~~~
 
 Open [http://localhost:8090](http://localhost:8090). Air runs the Go application on port 8080 and proxies browser requests through port 8090.
+
+The server renders the home page at <code>/</code>, serves assets from <code>/static/</code>, and includes a starter HTMX endpoint at <code>/htmx-test</code>.
 
 ## Task commands
 

@@ -31,7 +31,20 @@ cd my-app
 /path/to/emogo
 ```
 
-Emogo prompts for a project name, initializes the Go module and Bun project, installs the Go and Bun dependencies, writes the starter application files, and starts the development task. Run it in the directory that should contain the new project; it writes files into the current directory.
+Emogo prompts for a project name, then asks whether to initialize Git. Run it in the directory that should contain the new project; it writes files into the current directory.
+
+## What Emogo creates
+
+For the supplied project name, Emogo:
+
+1. Initializes the Go module and installs `pgx`, `godotenv`, and Templ.
+2. Initializes Bun and installs Tailwind CSS and HTMX.
+3. Creates the Go server, Templ templates, TypeScript entry point, Tailwind source CSS, database connection helper, sqlc configuration, initial Goose migration, Air configuration, Taskfile, and project README.
+4. Writes a self-hosted Geist Latin variable font and its OFL license. The font covers weights 100–900 and is already connected to Tailwind’s `font-sans` utility.
+5. Initializes a Git repository only when you answer `y` to the Git prompt.
+6. Starts `task dev`.
+
+The generated server serves `/static/` from `web/static`, renders the home page at `/`, and includes an HTMX example endpoint at `/htmx-test`.
 
 When development starts, open [http://localhost:8090](http://localhost:8090). Air runs the Go server on port `8080` and provides the browser-facing proxy on port `8090`.
 
