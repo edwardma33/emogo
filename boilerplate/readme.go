@@ -6,6 +6,23 @@ This project was created with Emogo. It uses Go, Templ, HTMX, Alpine.js, Tailwin
 
 Emogo installed the Go and Bun dependencies, generated the starter files, and optionally initialized Git during project creation.
 
+## Technology docs
+
+| Technology | Used for | Documentation |
+| --- | --- | --- |
+| Go | HTTP server and application code | [Go docs](https://go.dev/doc/) |
+| Templ | Server-rendered HTML components | [Templ docs](https://templ.guide/) |
+| shadcn-templ | Starter UI components and theme styles | [shadcn-templ docs](https://shadcn-templ.com/docs/introduction) |
+| HTMX | HTML-driven server requests | [HTMX docs](https://htmx.org/docs/) |
+| Alpine.js | Client-side interactions | [Alpine.js docs](https://alpinejs.dev/start-here) |
+| Tailwind CSS | Utility-based styling | [Tailwind CSS docs](https://tailwindcss.com/docs/) |
+| Bun | Frontend dependencies and TypeScript bundling | [Bun docs](https://bun.com/docs) |
+| Task | Development and migration commands | [Task docs](https://taskfile.dev/docs/) |
+| Air | Go server reloads during development | [Air docs](https://github.com/air-verse/air#readme) |
+| PostgreSQL and pgx | Database and Go driver | [PostgreSQL docs](https://www.postgresql.org/docs/), [pgx docs](https://pkg.go.dev/github.com/jackc/pgx/v5) |
+| Goose | Database migrations | [Goose docs](https://pressly.github.io/goose/) |
+| sqlc | SQL query code generation configuration | [sqlc docs](https://docs.sqlc.dev/en/latest/) |
+
 ## Prerequisites
 
 The generated Taskfile expects these commands to be installed and available on your PATH:
