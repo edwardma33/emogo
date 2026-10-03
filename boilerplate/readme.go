@@ -35,6 +35,8 @@ Open [http://localhost:8090](http://localhost:8090). Air runs the Go application
 
 The server renders the home page at <code>/</code>, serves assets from <code>/static/</code>, and includes a starter HTMX endpoint at <code>/htmx-test</code>.
 
+The theme follows the system preference until the switcher is clicked. The selected light or dark theme is saved in browser local storage for future visits.
+
 ## Task commands
 
 | Command | What it does |

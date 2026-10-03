@@ -12,7 +12,7 @@ Install the following before creating a project:
 - [Air](https://github.com/air-verse/air): `go install github.com/air-verse/air@latest`
 - [Templ](https://templ.guide/quick-start/installation): `go install github.com/a-h/templ/cmd/templ@latest`
 - [Goose](https://github.com/pressly/goose): `go install github.com/pressly/goose/v3/cmd/goose@latest`
-- [shadcn-templ](https://shadcn-templ.com/): install its CLI and make sure `shadcn-templ` is on your `PATH`.
+- [shadcn-templ](https://shadcn-templ.com/docs/cli): `go install github.com/axadrn/shadcn-templ/v2/cmd/shadcn-templ@latest`
 
 Ensure Go's binary directory is on your `PATH` so `air`, `templ`, `goose`, and `shadcn-templ` are available in your shell.
 
@@ -61,5 +61,7 @@ Each generated project contains its own `README.md` with setup guidance and a re
 - A theme switcher and Alpine.js counter on the starter page
 - shadcn-templ components under `components`
 - PostgreSQL connection code in `internal/db`, migrations in `sql/schema`, and `sqlc.yaml`
+
+The theme follows the system preference until the switcher is clicked. The selected light or dark theme is saved in browser local storage for future visits.
 
 Set `DATABASE_URL` in the generated `.env` before using the database migration tasks.
