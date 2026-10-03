@@ -2,7 +2,7 @@ package boilerplate
 
 var READMEFileData string = `# %s
 
-This project was created with Emogo. It uses Go, Templ, HTMX, Tailwind CSS, Bun, and PostgreSQL scaffolding.
+This project was created with Emogo. It uses Go, Templ, HTMX, Alpine.js, Tailwind CSS, shadcn-templ components, Bun, and PostgreSQL scaffolding.
 
 Emogo installed the Go and Bun dependencies, generated the starter files, and optionally initialized Git during project creation.
 
@@ -52,7 +52,8 @@ The server renders the home page at <code>/</code>, serves assets from <code>/st
 
 ## Project layout
 
-- <code>web/templates</code> contains Templ components. The starter page has an HTMX button that calls <code>/htmx-test</code>.
+- <code>web/templates</code> contains the starter page with an HTMX button that calls <code>/htmx-test</code> and an Alpine.js counter.
+- <code>components</code> contains shadcn-templ components and the theme switcher.
 - <code>web/static</code> contains the Tailwind input/output CSS, TypeScript/JavaScript browser bundle, and a self-hosted Geist Latin variable font with weights from 100 through 900. Its OFL license is in <code>LICENSES/Geist-OFL.txt</code>.
 - <code>internal/db</code> contains PostgreSQL connection code. <code>sql/schema</code> contains Goose migrations, and <code>sqlc.yaml</code> configures sqlc for future query generation.
 `
