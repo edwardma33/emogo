@@ -16,14 +16,41 @@ var dirs = []string{
 func main() {
 	projectName := GetProjectName()
 
+	dbType := utils.PickFromMenu("Which db?: ", []string{"Postgres", "Sqlite"})
+
+	type DBConfig struct {
+		DriverPackage string
+		SQLCData   string
+		DBConnData string
+		ENVData    string
+	}
+
+	var dbCfg DBConfig
+
+	if dbType == "Postgres" {
+		dbCfg = DBConfig{
+			DriverPackage:"github.com/jackc/pgx/v5" ,
+			SQLCData:   boilerplate.SQLCYAMLPostgresFileData,
+			DBConnData: boilerplate.DbConnPostgresGoFileData,
+			ENVData:    "DATABASE_URL=\"postgresql://[user[:password]@][host][:port][/dbname]?sslmode=disable\"",
+		}
+	} else {
+		dbCfg = DBConfig{
+			DriverPackage: "github.com/mattn/go-sqlite3",
+			SQLCData:   boilerplate.SQLCYAMLSQLiteFileData,
+			DBConnData: boilerplate.DbConnSQLiteGoFileData,
+			ENVData:    "DATABASE_URL=\"data.db\"",
+		}
+	}
+
 	var files = map[string]string{
 		"main.go":                    fmt.Sprintf(boilerplate.MainGoFileData, projectName),
 		"README.md":                  fmt.Sprintf(boilerplate.READMEFileData, projectName),
-		"sqlc.yaml":                  boilerplate.SQLCYAMLFileData,
+		"sqlc.yaml":                  dbCfg.SQLCData,
 		".air.toml":                  boilerplate.AirTOMLFileData,
-		".env":                       "DATABASE_URL=\"postgresql://[user[:password]@][host][:port][/dbname]?sslmode=disable\"",
-		"Taskfile.yaml":              boilerplate.TaskfileYAMLFileData,
-		"internal/db/conn.go":        boilerplate.DbConnGoFileData,
+		".env":                       dbCfg.ENVData,
+		"Taskfile.yaml":              fmt.Sprintf(boilerplate.TaskfileYAMLFileData, strings.ToLower(dbType), strings.ToLower(dbType)),
+		"internal/db/conn.go":        dbCfg.DBConnData,
 		"sql/schema/001_init.sql":    "-- +goose Up\n\n-- +goose Down",
 		"web/templates/layout.templ": boilerplate.LayoutTemplFileData,
 		"web/templates/index.templ":  fmt.Sprintf(boilerplate.IndexTemplFileData, projectName, projectName),
@@ -35,7 +62,7 @@ func main() {
 	// go mod init and install deps
 	utils.RunCommand(fmt.Sprintf("go mod init %s", projectName))
 	var deps = []string{
-		"github.com/jackc/pgx/v5",
+		dbCfg.DriverPackage,
 		"github.com/joho/godotenv",
 		"github.com/a-h/templ",
 		"github.com/Oudwins/tailwind-merge-go",

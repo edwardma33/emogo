@@ -8,11 +8,11 @@ dotenv: ['.env']
 tasks:
   goose:up:
     cmds:
-      - goose -dir sql/schema postgres "$DATABASE_URL" up
+      - goose -dir sql/schema %s "$DATABASE_URL" up
 
   goose:down:
     cmds:
-      - goose -dir sql/schema postgres "$DATABASE_URL" down
+      - goose -dir sql/schema %s "$DATABASE_URL" down
 
   templ:generate:
     cmds:

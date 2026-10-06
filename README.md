@@ -1,6 +1,6 @@
 # Emogo
 
-Emogo creates a small Go web project with a server-rendered [Templ](https://templ.guide/) UI, [HTMX](https://htmx.org/), [Alpine.js](https://alpinejs.dev/), [Tailwind CSS](https://tailwindcss.com/), and [shadcn-templ](https://shadcn-templ.com/) components. It also includes PostgreSQL connection and migration scaffolding, plus a `sqlc.yaml` configuration file.
+Emogo creates a small Go web project with a server-rendered [Templ](https://templ.guide/) UI, [HTMX](https://htmx.org/), [Alpine.js](https://alpinejs.dev/), [Tailwind CSS](https://tailwindcss.com/), and [shadcn-templ](https://shadcn-templ.com/) components. Choose PostgreSQL or SQLite for the generated database connection, migration tasks, and `sqlc.yaml` configuration.
 
 ## Technology docs
 
@@ -15,7 +15,8 @@ Emogo creates a small Go web project with a server-rendered [Templ](https://temp
 | Bun | Frontend dependencies and TypeScript bundling | [Bun docs](https://bun.com/docs) |
 | Task | Development and migration commands | [Task docs](https://taskfile.dev/docs/) |
 | Air | Go server reloads during development | [Air docs](https://github.com/air-verse/air#readme) |
-| PostgreSQL and pgx | Database and Go driver | [PostgreSQL docs](https://www.postgresql.org/docs/), [pgx docs](https://pkg.go.dev/github.com/jackc/pgx/v5) |
+| PostgreSQL and pgx | PostgreSQL option and Go driver | [PostgreSQL docs](https://www.postgresql.org/docs/), [pgx docs](https://pkg.go.dev/github.com/jackc/pgx/v5) |
+| SQLite and go-sqlite3 | SQLite option and Go driver | [SQLite docs](https://www.sqlite.org/docs.html), [go-sqlite3 docs](https://github.com/mattn/go-sqlite3) |
 | Goose | Database migrations | [Goose docs](https://pressly.github.io/goose/) |
 | sqlc | SQL query code generation configuration | [sqlc docs](https://docs.sqlc.dev/en/latest/) |
 
@@ -33,6 +34,8 @@ Install the following before creating a project:
 
 Ensure Go's binary directory is on your `PATH` so `air`, `templ`, `goose`, and `shadcn-templ` are available in your shell.
 
+SQLite projects use `go-sqlite3`, which requires CGo and a C compiler when building the generated app.
+
 ## Build and use the CLI
 
 Build Emogo from this repository:
@@ -49,13 +52,13 @@ cd my-app
 /path/to/emogo
 ```
 
-Emogo prompts for a project name, whether to install all shadcn-templ components, and whether to initialize Git. If you decline all components, it installs the button and icon components used by the starter page. Run it in the directory that should contain the new project; it writes files into the current directory.
+Emogo prompts for a project name, a database choice, whether to install all shadcn-templ components, and whether to initialize Git. If you decline all components, it installs the button and icon components used by the starter page. Run it in the directory that should contain the new project; it writes files into the current directory.
 
 ## What Emogo creates
 
 For the supplied project name, Emogo:
 
-1. Initializes the Go module and installs `pgx`, `godotenv`, Templ, and the shadcn-templ Tailwind merge dependency.
+1. Initializes the Go module and installs the selected database driver (`pgx` or `go-sqlite3`), `godotenv`, Templ, and the shadcn-templ Tailwind merge dependency.
 2. Initializes Bun and installs Tailwind CSS, HTMX, Alpine.js, and Alpine.js types.
 3. Creates the Go server, Templ templates, TypeScript entry point, Tailwind source CSS, database connection helper, sqlc configuration, initial Goose migration, Air configuration, Taskfile, and project README.
 4. Writes a self-hosted Geist Latin variable font and its OFL license. The font covers weights 100–900 and is already connected to Tailwind’s `font-sans` utility.
@@ -77,8 +80,8 @@ Each generated project contains its own `README.md` with setup guidance and a re
 - An HTMX starter route at `/htmx-test`
 - A theme switcher and Alpine.js counter on the starter page
 - shadcn-templ components under `components`
-- PostgreSQL connection code in `internal/db`, migrations in `sql/schema`, and `sqlc.yaml`
+- Connection code for the selected database in `internal/db`, migrations in `sql/schema`, and `sqlc.yaml`
 
 The theme follows the system preference until the switcher is clicked. The selected light or dark theme is saved in browser local storage for future visits.
 
-Set `DATABASE_URL` in the generated `.env` before using the database migration tasks.
+The generated `.env` contains `DATABASE_URL`. Replace the PostgreSQL placeholder with your connection string, or use the SQLite default `data.db` file in the project directory. The database migration tasks use this value.

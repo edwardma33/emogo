@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strconv"
 	"strings"
 )
 
@@ -23,4 +24,19 @@ func RunCommand(cmdStr string) error {
 	cmd.Stderr = os.Stderr
 
 	return cmd.Run()
+}
+
+func PickFromMenu(prompt string, menu []string) string {
+	var v string
+	for i, opt := range menu {
+		fmt.Printf("%d: %s\n", i, opt)
+	}
+	fmt.Print(prompt)
+	fmt.Scanln(&v)
+	vInt, err := strconv.Atoi(v)
+	if vInt < 0 || vInt >= len(menu) || err != nil {
+		fmt.Println("Invalid choice")
+		return PickFromMenu(prompt, menu)
+	}
+	return menu[vInt]
 }
