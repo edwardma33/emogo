@@ -1,6 +1,8 @@
 package boilerplate
 
 var AirTOMLFileData string = `
+[build]
+	exclude_dir = ["node_modules"]
 [proxy]
   enabled = true
   proxy_port = 8090 # The new port you will open in your browser
